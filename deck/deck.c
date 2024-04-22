@@ -67,13 +67,14 @@ void RemoveCardFromDeck(Deck *self,Card *card){
 
 void ShuffleDeck(Deck *self){
 
-    int rand1=30+rand()%2;
+    int rand1=30+rand()%13;
 
     for(int i=0;i<rand1;i++){
-        int rand2=rand();
-        Card *temp=self->cards[i];
-        self->cards[i]=self->cards[rand2%51];
-        self->cards[rand2%51]=temp;
+
+        int rand2=rand()%(self->size);
+        Card *temp=self->cards[rand2];
+        self->cards[rand2]=self->cards[rand1%(self->size)];
+        self->cards[rand1%(self->size)]=temp;
     }
 
 
@@ -83,9 +84,8 @@ Deck *DealCards(Deck *self){
 
     Deck *mycards=newDeck();
     ShuffleDeck(self);
-
+    
     for(int i=0;i<4;i++){
-
         Card *card=self->cards[i]; //pick top card
         AddCardToDeck(mycards,card); //give selected card to player
         RemoveCardFromDeck(self,card);  //remove card from the main deck

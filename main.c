@@ -34,14 +34,24 @@ int main(){
         printf("%7s     %s\n",GetCardSuit(temp),GetCardNumber(temp));
     }
 
-    ShuffleDeck(maindeck);
+    Deck *player=DealCards(maindeck);
 
-    printf("Shuffled deck:\n");
+    printf("Printing cards dealt to player:\n");
+    for(int i=0;i<player->size;i++){
+
+        Card *temp=player->cards[i];
+        printf("%7s     %s\n",GetCardSuit(temp),GetCardNumber(temp));
+    }
+
+    printf("Printing cards remaining on deck:\n");
     for(int i=0;i<maindeck->size;i++){
 
         Card *temp=maindeck->cards[i];
         printf("%7s     %s\n",GetCardSuit(temp),GetCardNumber(temp));
     }
+
     FreeDeck(maindeck);
+    FreeDeck(player);
+
     return 0;
 }
