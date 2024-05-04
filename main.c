@@ -13,6 +13,7 @@ int main(){
 
     while (true){
         int bet = ask_bet_amount(&interface,balance);
+        int single_bet = bet;
         balance-=bet;
         Deck  * main_deck = newDeck();
         LoadFullDeck(main_deck);
@@ -31,6 +32,8 @@ int main(){
             }
             balance-=bet;
             bet =bet * 2;
+            show_interface(balance, bet, dealer,player_hand_1,player_hand2);
+
         }
 
         //implement the rest here
