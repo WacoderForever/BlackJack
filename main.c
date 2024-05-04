@@ -1,57 +1,34 @@
 #include "dependencies/decklib.h"
+#include "dependencies/cliinput.h"
+
 #include "blackjack/blackjack.h"
+#include "interface/interface.h"
 #include "blackjack/blackjack.c"
+#include "interface/interface.c"
 
-void test_split(){
-    //testing can splic
-    Card *card1=newCard(KING,DIAMONDS);
-    Card *card2=newCard(KING,CLUBS);
-    Deck  *deck1 = newDeck();
-    AddCardToDeck(deck1,card1);
-    AddCardToDeck(deck1,card2);
-    printf("deck1 can split: %d\n", CanSplit(deck1));
-    FreeDeck(deck1);
-}
-void test_not_split(){
-    //testing can splic
-    Card *card1=newCard(KING,DIAMONDS);
-    Card *card2=newCard(ACES,CLUBS);
-    Deck  *deck1 = newDeck();
-    AddCardToDeck(deck1,card1);
-    AddCardToDeck(deck1,card2);
-    printf("deck2 can split: %d\n", CanSplit(deck1));
-    FreeDeck(deck1);
-}
-void test_pontuation(){
-    Card *card1=newCard(KING,DIAMONDS);
-    Card *card2=newCard(ACES,CLUBS);
-    Card *card3=newCard(CARD5,CLUBS);
-
-    Deck  *deck1 = newDeck();
-    AddCardToDeck(deck1,card1);
-    AddCardToDeck(deck1,card2);
-    AddCardToDeck(deck1,card3);
-
-    printf("deck1 pontuation: %d\n", GetPoints(deck1));
-    FreeDeck(deck1);
-}
-void test_pontuation2(){
-    Card *card1=newCard(KING,DIAMONDS);
-    Card *card2=newCard(ACES,CLUBS);
-
-    Deck  *deck1 = newDeck();
-    AddCardToDeck(deck1,card1);
-    AddCardToDeck(deck1,card2);
-
-    printf("deck2 pontuation: %d\n", GetPoints(deck1));
-    FreeDeck(deck1);
-}
 int main(){
+    CliInterface  interface = newCliInterface();
+    int balance = 10000;
 
-    test_split();
-    test_not_split();
-    test_pontuation();
-    test_pontuation2();
+    while (true){
+        int bet = ask_bet_amount(&interface,balance);
+        balance-=bet;
+        Deck  * main_deck = newDeck();
+        LoadFullDeck(main_deck);
+        Deck  *dealker = DealCards(main_deck,2);
+        Deck  *player_hand_1 = DealCards(main_deck,2);
+        Deck *player_hand2 = NULL;
+        
+        if(CanSplit(player_hand_1)){
+            bool split = interface.ask_option(&interface,"would you like to split ?(yes,no)\n","  no|yes");
+            if(split){
+                player_hand2 = DealCards(player_hand_1,1);
+            }
+        }
+
+
+
+    }
 
 
 
