@@ -29,15 +29,21 @@ int main(){
                 player_hand2 = DealCards(player_hand_1,1);
             }
         }
-
         //implement the rest here
-        bool exit = interface.ask_option(&interface,"would you like to exit ?","no | yes");
+
+
         FreeDeck(main_deck);
         FreeDeck(dealer);
         FreeDeck(player_hand_1);
         if(player_hand2){
             FreeDeck(player_hand2);
         }
+
+
+
+        bool exit = interface.ask_option(&interface,"would you like to exit ?","no | yes");
+ 
+
         if(exit){
             break;
         }
