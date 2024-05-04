@@ -9,7 +9,7 @@ int GetAceBlackJackValue(int currentpoints){
     return 11;
 }
 
-int GetBlackJackValue(char *cardvalue,int points){
+int GetBlackJackValue(const char *cardvalue,int points){
 
     if(!strcmp(cardvalue,"2")){
         return 2;
@@ -63,7 +63,7 @@ int GetPoints(Deck *self){
     for(int i=0;i<self->size;i++){
         
         Card *temp=self->cards[i];
-        char *cardvalue=GetCardValueString(temp);
+        const char *cardvalue=GetCardValueString(temp);
         points+=GetBlackJackValue(cardvalue,points);
     }
 
@@ -77,12 +77,12 @@ int CanSplit(Deck *self){
 
     do{
         Card *temp=self->cards[k];
-        char *ini=GetCardValueString(temp);
+        const char *ini=GetCardValueString(temp);
 
-        for(int i=k+1;i<self->size-1;i++){
+        for(int i=k+1;i<self->size;i++){
 
             Card *temp2=self->cards[i];
-            char *next=GetCardValueString(temp2);
+            const char *next=GetCardValueString(temp2);
 
             if(!strcmp(ini,next)){
 
