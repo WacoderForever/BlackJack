@@ -1,6 +1,6 @@
-#include "decklib.h"
-#include "blackjack.h"
-#include "blackjack.c"
+#include "dependencies/decklib.h"
+#include "blackjack/blackjack.h"
+#include "blackjack/blackjack.c"
 
 int main(){
 
