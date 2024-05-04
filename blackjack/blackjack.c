@@ -13,16 +13,15 @@ int GetBlackJackCardValue(Card  *card){
 int GetPoints(Deck *dek){
 
     int points=0;
-    //counting non aces values
+    //counting values considering aces as 1
     for(int i=0;i<dek->size;i++){
 
         Card *card=dek->cards[i];
 
         points+= GetBlackJackCardValue(card);
     }
-    //incrementing aces
+    //incrementing aces in 10 if dont fit 22
     for(int i=0;i<dek->size;i++){
-
 
         Card *card=dek->cards[i];
         if(card->value != ACES){
