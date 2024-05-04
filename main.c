@@ -5,7 +5,7 @@
 int main(){
 
     Card *card1=newCard(ACES,DIAMONDS);
-    Card *card2=newCard(ACES,SPADES);
+    Card *card2=newCard(CARD10,SPADES);
 
     Deck *deck=newDeck();
     AddCardToDeck(deck,card1);
