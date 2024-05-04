@@ -1,50 +1,37 @@
 #include <stdlib.h>
 #include "dependencies/decklib.h"
 #include "dependencies/cliinput.h"
-
+#include "game/game.h"
 #include "blackjack/blackjack.h"
 #include "interface/interface.h"
 #include "blackjack/blackjack.c"
 #include "interface/interface.c"
+#include "game/game.c"
 
 int main(){
     CliInterface  interface = newCliInterface();
     int balance = 10000;
 
     while (true){
-        int bet = ask_bet_amount(&interface,balance);
-        int single_bet = bet;
-        balance-=bet;
-        Deck  * main_deck = newDeck();
-        LoadFullDeck(main_deck);
-        ShuffleDeck(main_deck);
+        Round  *round = newRound();
 
-    
-        Deck  *dealer = DealCards(main_deck, 1);
-        Deck  *player_hand_1 = DealCards(main_deck,2);
-        Deck *player_hand2 = NULL;
+        round->bet = ask_bet_amount(&interface,balance);
+        balance-=round->bet;
 
-        show_interface(balance, bet, dealer,player_hand_1,player_hand2);
-        if(CanSplit(player_hand_1)){
+        show_interface(round,balance);
+        if(CanSplit(round->player_hand1)){
             bool split = interface.ask_option(&interface,"would you like to split ?(yes,no)\n","  no|yes");
             if(split){
-                player_hand2 = DealCards(player_hand_1,1);
+                round->player_hand2 = DealCards(round->player_hand1,1);
             }
-            balance-=bet;
-            bet =bet * 2;
-            show_interface(balance, bet, dealer,player_hand_1,player_hand2);
+            balance-=round->bet;
+            round->bet  = round->bet *2;
 
+            show_interface(round,balance);
         }
 
         //implement the rest here
 
-
-        FreeDeck(main_deck);
-        FreeDeck(dealer);
-        FreeDeck(player_hand_1);
-        if(player_hand2){
-            FreeDeck(player_hand2);
-        }
         printf("%s====================================\n",CLI_RED);
         bool again = interface.ask_option(&interface,"would you like yo play again ?","no | yes"); 
 

@@ -36,23 +36,23 @@ void print_deck(Deck *deck){
     printf("%s\n",CLI_WHITE);
 
 }
-void show_interface(int balance,int bet,Deck *dealer_deck,Deck *player_hand1,Deck *player_hand2){
+void show_interface(Round *current_round,int balance){
     system("clear");
     printf("balance:%s%d\n",CLI_GREEN,balance);
     printf("%s",CLI_WHITE);
-    printf("bet:%s%d\n",CLI_GREEN,bet);
+    printf("bet:%s%d\n",CLI_GREEN,current_round->bet);
     printf("%s",CLI_WHITE);
 
     printf("delaer:");
 
-    print_deck(dealer_deck);
+    print_deck(current_round->dealer_deck);
 
     printf("hand1:");
-    print_deck(player_hand1);
+    print_deck(current_round->player_hand1);
 
-    if(player_hand2){
+    if(current_round->player_hand2){
         printf("hand2:");
-        print_deck(player_hand2);
+        print_deck(current_round->player_hand2);
     }
 
 }
