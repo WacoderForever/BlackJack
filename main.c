@@ -16,9 +16,7 @@ int main(){
         Deck  * main_deck = newDeck();
         LoadFullDeck(main_deck);
 
-        for(int i =0; i <main_deck->size; i++){
-            printf("%s\n", GetCardString(main_deck->cards[i]));
-        }
+       
 
         Deck  *dealer = DealCards(main_deck, 2);
         Deck  *player_hand_1 = DealCards(main_deck,2);
