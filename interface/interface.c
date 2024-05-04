@@ -37,7 +37,6 @@ void print_deck(Deck *deck){
 
 }
 void show_interface(int balance,int bet,Deck *dealer_deck,Deck *player_hand1,Deck *player_hand2){
-    system("clear"); // these clear the terminal
 
     printf("balance:%s%d\n",CLI_GREEN,balance);
     printf("%s",CLI_WHITE);

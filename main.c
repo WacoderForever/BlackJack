@@ -42,12 +42,14 @@ int main(){
 
 
 
-        bool exit = interface.ask_option(&interface,"would you like to exit ?","no | yes");
+        bool again = interface.ask_option(&interface,"would you like yo play again ?","no | yes");
  
 
-        if(exit){
+        if(!again){
             break;
         }
+        printf("%s=====================================\n",CLI_RED);
+
     }
 
 
