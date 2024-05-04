@@ -1,4 +1,11 @@
-int GetAceBlackJackValue(int currentpoints);
-int GetBlackJackValue(const char *cardvalue,int points);
-int GetPoints(Deck *self);
-int CanSplit(Deck *self);
+
+
+
+
+
+
+int GetBlackJackCardValue(Card *card);
+
+int GetPoints(Deck *deck);
+
+bool CanSplit(Deck *deck);

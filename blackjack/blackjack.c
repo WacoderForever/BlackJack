@@ -1,98 +1,50 @@
-int GetAceBlackJackValue(int currentpoints){
 
-    int tot=11+currentpoints;
-    if(tot>21){
+int GetBlackJackCardValue(Card  *card){
 
-        return 1;
-    }
-
-    return 11;
-}
-
-int GetBlackJackValue(const char *cardvalue,int points){
-
-    if(!strcmp(cardvalue,"2")){
-        return 2;
-    }
-    if(!strcmp(cardvalue,"3")){
-        return 3;
-    }
-    if(!strcmp(cardvalue,"4")){
-        return 4;
-    }
-    if(!strcmp(cardvalue,"5")){
-        return 5;
-    }
-    if(!strcmp(cardvalue,"6")){
-        return 6;
-    }
-    if(!strcmp(cardvalue,"7")){
-        return 7;
-    }
-    if(!strcmp(cardvalue,"8")){
-        return 8;
-    }
-    if(!strcmp(cardvalue,"9")){
-        return 9;
-    }
-    if(!strcmp(cardvalue,"10")){
-        return 10;
-    }
-    if(!strcmp(cardvalue,"King")){
-        return 10;
-    }
-    if(!strcmp(cardvalue,"Jack")){
-        return 10;
-    }
-    if(!strcmp(cardvalue,"Queen")){
-        return 10;
+    if(card->value >= ACES && card->value <= CARD10){
+        return card->value+1;
     }
 
-    else{
-
-        GetAceBlackJackValue(points);
-    }
+    return 10;
 }
 
 
 
-int GetPoints(Deck *self){
+int GetPoints(Deck *dek){
 
     int points=0;
+    //counting non aces values
+    for(int i=0;i<dek->size;i++){
 
-    for(int i=0;i<self->size;i++){
-        
-        Card *temp=self->cards[i];
-        const char *cardvalue=GetCardValueString(temp);
-        points+=GetBlackJackValue(cardvalue,points);
+        Card *card=dek->cards[i];
+
+        points+= GetBlackJackCardValue(card);
+    }
+    //incrementing aces
+    for(int i=0;i<dek->size;i++){
+
+
+        Card *card=dek->cards[i];
+        if(card->value != ACES){
+            continue;
+        }
+        int possible_pointes = points+10;
+        if(possible_pointes> 21){
+            break;
+        }
+        points = possible_pointes;
+
     }
 
     return points;
 }
 
-int CanSplit(Deck *self){
+bool CanSplit(Deck *deck){
 
-    int ans=0;
-    int k=0;
-
-    do{
-        Card *temp=self->cards[k];
-        const char *ini=GetCardValueString(temp);
-
-        for(int i=k+1;i<self->size;i++){
-
-            Card *temp2=self->cards[i];
-            const char *next=GetCardValueString(temp2);
-
-            if(!strcmp(ini,next)){
-
-                ans=1;
-                break;
-            }
-        }
-        k++;
+    Card * first = deck->cards[0];
+    Card  *second = deck->cards[1];
+    if(first->value == second->value) {
+        return true;
     }
-    while(k<self->size-1);
-
-    return ans;
+    return false;
 }
