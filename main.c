@@ -15,6 +15,11 @@ int main(){
         balance-=bet;
         Deck  * main_deck = newDeck();
         LoadFullDeck(main_deck);
+
+        for(int i =0; i <main_deck->size; i++){
+            printf("%s\n", GetCardString(main_deck->cards[i]));
+        }
+
         Deck  *dealer = DealCards(main_deck, 2);
         Deck  *player_hand_1 = DealCards(main_deck,2);
         Deck *player_hand2 = NULL;
@@ -27,8 +32,17 @@ int main(){
             }
         }
 
-
-
+        //implement the rest here
+        bool exit = interface.ask_option(&interface,"would you like to exit ?","no | yes");
+        FreeDeck(main_deck);
+        FreeDeck(dealer);
+        FreeDeck(player_hand_1);
+        if(player_hand2){
+            FreeDeck(player_hand2);
+        }
+        if(exit){
+            break;
+        }
     }
 
 
