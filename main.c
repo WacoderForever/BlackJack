@@ -18,8 +18,7 @@ int main(){
         LoadFullDeck(main_deck);
         ShuffleDeck(main_deck);
 
-       
-
+    
         Deck  *dealer = DealCards(main_deck, 1);
         Deck  *player_hand_1 = DealCards(main_deck,2);
         Deck *player_hand2 = NULL;
@@ -44,15 +43,12 @@ int main(){
             FreeDeck(player_hand2);
         }
 
-
-
-        bool again = interface.ask_option(&interface,"would you like yo play again ?","no | yes");
- 
+        bool again = interface.ask_option(&interface,"would you like yo play again ?","no | yes"); 
 
         if(!again){
             break;
         }
-        printf("%sn",CLI_WHITE);
+        printf("%s\n",CLI_WHITE);
 
     }
 
