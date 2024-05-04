@@ -42,7 +42,7 @@ int main(){
         if(player_hand2){
             FreeDeck(player_hand2);
         }
-
+        printf("%s====================================\n",CLI_RED);
         bool again = interface.ask_option(&interface,"would you like yo play again ?","no | yes"); 
 
         if(!again){
