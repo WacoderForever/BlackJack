@@ -15,10 +15,11 @@ int main(){
         balance-=bet;
         Deck  * main_deck = newDeck();
         LoadFullDeck(main_deck);
-        Deck  *dealker = DealCards(main_deck,2);
+        Deck  *dealer = DealCards(main_deck, 2);
         Deck  *player_hand_1 = DealCards(main_deck,2);
         Deck *player_hand2 = NULL;
-        
+
+        show_interface(balance, bet, dealer,player_hand_1,player_hand2);
         if(CanSplit(player_hand_1)){
             bool split = interface.ask_option(&interface,"would you like to split ?(yes,no)\n","  no|yes");
             if(split){
