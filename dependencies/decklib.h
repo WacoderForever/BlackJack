@@ -1,4 +1,5 @@
 
+
 #ifndef DeckLib_H
 #define DeckLib_H
 #include <stdbool.h>
@@ -8,7 +9,7 @@
 #include <time.h>
 
 
-#define DECK_LIB_SEED 23423492323;
+#define DECK_LIB_SEED 23423492323
 unsigned int TOTAL_ITERATIONS = 0;
 #define DECK_LIB_TOTAL_SHUFFLE 10000
 
@@ -81,7 +82,11 @@ int SearchCardIndexInDeck(Deck *self, Card *card);
 
 Card  *GetCardByIndex(Deck *self,int index);
 
+void TransferCards(Deck *src,Deck *dest,int number);
+
 void RemoveCardByIndex(Deck *self,int index);
+
+void RemoveCardReferenceByIndex(Deck *self,int index);
 
 void RemoveCardFromDeck(Deck *self,Card *card);
 
@@ -429,6 +434,22 @@ void LoadFullDeck(Deck *self){
     }
 }
 
+void TransferCards(Deck *src,Deck *dest,int number){
+
+    if(src->size < number){
+        printf("Source deck has less cards\n");
+        return;
+    }
+
+   // ShuffleDeck(src);
+    for(int i=0;i<number;i++){
+        Card *card=src->cards[0]; //pick top card
+        AddCardToDeck(dest,card);
+        RemoveCardReferenceByIndex(src,0);
+    }
+
+}
+
 void RemoveCardByIndex(Deck *self,int index){
 
 
@@ -441,6 +462,23 @@ void RemoveCardByIndex(Deck *self,int index){
     }
 
     FreeCard(self->cards[index]); // remove the found card
+    self->size--;
+    for(int i=index ; i < self->size; i++){
+        self->cards[i] = self->cards[i+1];
+    }
+
+}
+
+void RemoveCardReferenceByIndex(Deck *self,int index){
+
+    //these allows -1 iterations
+    if(index < 0){
+        index  = self->size - index;
+    }
+    if(index >= self->size ){
+        return;
+    }
+
     self->size--;
     for(int i=index ; i < self->size; i++){
         self->cards[i] = self->cards[i+1];
@@ -485,15 +523,18 @@ void ShuffleDeck(Deck *self){
 }
 
 Deck * DealCards(Deck *self,int size){
+    if(self->size < size){
+        printf("Source deck has less cards\n");
+        return NULL;
+   }
 
     ShuffleDeck(self);
     Deck  *sub_deck  = newDeck();
 
     for(int i=0;i<size;i++){
-        Card *card=self->cards[i]; //pick top card
-        Card  *copy = copyCard(card);
-        AddCardToDeck(sub_deck,copy);
-        RemoveCardByIndex(self,i);
+        Card *card=self->cards[0]; //pick top card
+        AddCardToDeck(sub_deck,card);
+        RemoveCardReferenceByIndex(self,0);
 
     }
     return sub_deck;

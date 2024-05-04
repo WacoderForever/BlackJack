@@ -30,7 +30,10 @@ int main(){
             if(split){
                 player_hand2 = DealCards(player_hand_1,1);
             }
+            balance-=bet;
+            bet =bet * 2;
         }
+
         //implement the rest here
 
 
@@ -49,7 +52,7 @@ int main(){
         if(!again){
             break;
         }
-        printf("%s=====================================\n",CLI_RED);
+        printf("%sn",CLI_WHITE);
 
     }
 
