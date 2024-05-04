@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "dependencies/decklib.h"
 #include "dependencies/cliinput.h"
 
@@ -19,7 +20,7 @@ int main(){
 
        
 
-        Deck  *dealer = DealCards(main_deck, 2);
+        Deck  *dealer = DealCards(main_deck, 1);
         Deck  *player_hand_1 = DealCards(main_deck,2);
         Deck *player_hand2 = NULL;
 

@@ -37,25 +37,14 @@ void print_deck(Deck *deck){
 
 }
 void show_interface(int balance,int bet,Deck *dealer_deck,Deck *player_hand1,Deck *player_hand2){
-
     printf("balance:%s%d\n",CLI_GREEN,balance);
     printf("%s",CLI_WHITE);
     printf("bet:%s%d\n",CLI_GREEN,bet);
     printf("%s",CLI_WHITE);
 
     printf("delaer:");
-    //means it must hide the first dealker card
-    if(dealer_deck->size == 2){
-        printf("X ");
-        Card  *last_card = dealer_deck->cards[1];
-        print_card(last_card);
-        printf("%s(%d)",CLI_BLUE, GetBlackJackCardValue(last_card));
-        printf("%s\n",CLI_WHITE);
-    }
-    else{
-        print_deck(dealer_deck);
 
-    }
+    print_deck(dealer_deck);
 
     printf("hand1:");
     print_deck(player_hand1);
