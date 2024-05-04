@@ -1,12 +1,12 @@
 #include <stdlib.h>
 #include "dependencies/decklib.h"
 #include "dependencies/cliinput.h"
-#include "game/game.h"
+#include "round/round.h"
 #include "blackjack/blackjack.h"
 #include "interface/interface.h"
 #include "blackjack/blackjack.c"
 #include "interface/interface.c"
-#include "game/game.c"
+#include "round/round.c"
 
 int main(){
     CliInterface  interface = newCliInterface();
