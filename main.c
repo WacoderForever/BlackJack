@@ -15,6 +15,7 @@ int main(){
         balance-=bet;
         Deck  * main_deck = newDeck();
         LoadFullDeck(main_deck);
+        ShuffleDeck(main_deck);
 
        
 

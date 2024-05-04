@@ -24,7 +24,7 @@ void print_card(Card *card){
     if(card->suit == SPADES){
         printf("%s",CLI_RED);
     }
-    printf("%s",GetCardValueString(card));
+    printf("%s ",GetCardValueString(card));
 }
 
 void print_deck(Deck *deck){
@@ -32,6 +32,9 @@ void print_deck(Deck *deck){
         Card  *current = deck->cards[i];
         print_card(current);
     }
+    printf("%s(%d)",CLI_BLUE, GetPoints(deck));
+    printf("%s\n",CLI_WHITE);
+
 }
 void show_interface(int balance,int bet,Deck *dealer_deck,Deck *player_hand1,Deck *player_hand2){
     system("clear"); // these clear the terminal
@@ -44,24 +47,23 @@ void show_interface(int balance,int bet,Deck *dealer_deck,Deck *player_hand1,Dec
     printf("delaer:");
     //means it must hide the first dealker card
     if(dealer_deck->size == 2){
-        printf("X");
-        print_card(dealer_deck->cards[1]);
+        printf("X ");
+        Card  *last_card = dealer_deck->cards[1];
+        print_card(last_card);
+        printf("%s(%d)",CLI_BLUE, GetBlackJackCardValue(last_card));
+        printf("%s\n",CLI_WHITE);
     }
     else{
         print_deck(dealer_deck);
+
     }
-    printf("\n");
-    printf("%s",CLI_WHITE);
 
     printf("hand1:");
     print_deck(player_hand1);
-    printf("\n");
-    printf("%s",CLI_WHITE);
 
     if(player_hand2){
         printf("hand2:");
         print_deck(player_hand2);
-        printf("\n");
     }
 
 }
