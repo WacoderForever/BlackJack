@@ -44,8 +44,18 @@ void show_interface(Round *current_round,int balance){
     printf("%s",CLI_WHITE);
 
     printf("delaer:");
+    //means it must mock first card
+    if(current_round->dealer_deck->size == 2){
+        printf("X ");
+        Card  *first = current_round->dealer_deck->cards[0];
+        RemoveCardReferenceByIndex(current_round->dealer_deck,0);
+        print_deck(current_round->dealer_deck);
+        AddCardToDeck(current_round->dealer_deck,first);
+    }
+    else{
+        print_deck(current_round->dealer_deck);
+    }
 
-    print_deck(current_round->dealer_deck);
 
     printf("hand1:");
     print_deck(current_round->player_hand1);
