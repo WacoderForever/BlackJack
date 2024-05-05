@@ -42,7 +42,7 @@ bool CanSplit(Deck *deck){
 
     Card * first = deck->cards[0];
     Card  *second = deck->cards[1];
-    if(first->value == second->value) {
+    if(GetBlackJackCardValue(first)== GetBlackJackCardValue(second)) {
         return true;
     }
     return false;

@@ -22,18 +22,22 @@ int main(){
         if(CanSplit(round->player_hand1)){
             bool split = interface.ask_option(&interface,"would you like to split ?(yes,no)\n","  no|yes");
             if(split){
-                round->player_hand2 = DealCards(round->player_hand1,1);
-            }
-            balance-=round->bet;
-            round->bet  = round->bet *2;
 
-            show_interface(round,balance);
+                round->player_hand2 = DealCards(round->player_hand1,1);
+                balance-=round->bet;
+                round->bet = round->bet *2;
+                TransferCards(round->main_deck,round->player_hand1,1);
+                TransferCards(round->main_deck,round->player_hand2,1);
+                show_interface(round,balance);
+            }
+            
         }
 
         //implement the rest here
 
         printf("%s====================================\n",CLI_RED);
         bool again = interface.ask_option(&interface,"would you like yo play again ?","no | yes"); 
+        Round_free(round);
 
         if(!again){
             break;
