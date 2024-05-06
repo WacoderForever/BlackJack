@@ -49,7 +49,7 @@ bool CanSplit(Deck *deck){
 }
 
 void Winner(Round *round,Deck *playerhand,int *balance){
-
+    
     int dealerpoints=GetPoints(round->dealer_deck);
     int playerpoints=GetPoints(playerhand);
 

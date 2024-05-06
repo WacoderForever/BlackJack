@@ -42,7 +42,7 @@ int main(int argc,char *argv[]){
         balance-=round->bet;
 
         show_interface(round,balance);
-        bool split;
+        bool split = false;
         if(CanSplit(round->player_hand1)){
             split = interface.ask_option(&interface,"would you like to split ?(yes,no)\n","  no|yes ");
             if(split){
@@ -65,7 +65,7 @@ int main(int argc,char *argv[]){
 
 
        Winner(round,round->player_hand1,&balance);
-
+     
         if(split){
 
            Winner(round,round->player_hand2,&balance);
