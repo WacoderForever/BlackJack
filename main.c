@@ -28,12 +28,14 @@ int main(int argc,char *argv[]){
     CliFlag * seed_flag = cli.entry.get_flag(entry,"seed | s",CLI_NOT_CASE_SENSITIVE);
     bool is_seed_num = cli.flag.is_numeric(seed_flag,0);
     if(is_seed_num){
-        printf("definiu a seed\n");
         DECKLIB_DEBUG_SEED = cli.flag.get_long(seed_flag,0);
     }
 
+
+
     while (true){
         Round  *round = newRound();
+        cli.entry.free(entry);
 
         round->bet = ask_bet_amount(&interface,balance);
         balance-=round->bet;
@@ -73,12 +75,12 @@ int main(int argc,char *argv[]){
         Round_free(round);
 
         if(!again){
-            printf("seed: %d\n",DECK_LIB_STARTED_SEED);
+            printf(CLI_YELLOW"seed: %ld\n",DECK_LIB_STARTED_SEED);
             break;
         }
-        printf("%s\n",CLI_WHITE);
 
     }
+        printf("%s\n",CLI_WHITE);
 
 
 
