@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include<unistd.h>
+#include "dependencies/cclientry.h"
 #include "dependencies/decklib.h"
 #include "dependencies/cliinput.h"
 #include "round/round.h"
@@ -9,9 +10,21 @@
 #include "interface/interface.c"
 #include "round/round.c"
 
-int main(){
-    CliInterface  interface = newCliInterface();
+int main(int argc,char *argv[]){
     int balance = 10000;
+
+    CliNamespace cli = newCliNamespace();
+
+    CliInterface  interface = newCliInterface();
+    CliEntry *entry = newCliEntry(argc,argv);
+
+    //get the flag
+    CliFlag *balance_flag = cli.entry.get_flag(entry,"b | balance ",CLI_NOT_CASE_SENSITIVE);
+    bool is_balance_num = cli.flag.is_numeric(balance_flag,0);
+    if(is_balance_num){
+        balance = cli.flag.get_long(balance_flag,0);
+    }
+
 
     while (true){
         Round  *round = newRound();
