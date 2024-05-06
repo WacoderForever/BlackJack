@@ -19,8 +19,9 @@ int main(){
         balance-=round->bet;
 
         show_interface(round,balance);
+        bool split;
         if(CanSplit(round->player_hand1)){
-            bool split = interface.ask_option(&interface,"would you like to split ?(yes,no)\n","  no|yes");
+            split = interface.ask_option(&interface,"would you like to split ?(yes,no)\n","  no|yes");
             if(split){
 
                 round->player_hand2 = DealCards(round->player_hand1,1);
@@ -34,6 +35,20 @@ int main(){
         }
 
         //implement the rest here
+
+        bool hit = interface.ask_option(&interface,"would you like to hit ?(yes,no)\n","  no|yes");
+
+        if(hit){
+            
+           Hit(round,interface,balance);
+        }
+
+       Winner(round,round->player_hand1,balance);
+
+        if(split){
+
+           Winner(round,round->player_hand2,balance);
+        }
 
         printf("%s====================================\n",CLI_RED);
         bool again = interface.ask_option(&interface,"would you like yo play again ?","no | yes"); 

@@ -47,3 +47,79 @@ bool CanSplit(Deck *deck){
     }
     return false;
 }
+
+void Winner(Round *round,Deck *playerhand,int balance){
+
+    int dealerpoints=GetPoints(round->dealer_deck);
+    int playerpoints=GetPoints(playerhand);
+    int diff=playerpoints-dealerpoints;
+
+    while(dealerpoints<17){
+
+        TransferCards(round->main_deck,round->dealer_deck,1);
+        dealerpoints=GetPoints(round->dealer_deck);
+    }
+
+    //natural
+    if((playerpoints==21) && (dealerpoints != 21)){
+
+        balance+=round->bet*2;
+        printf("%sYou have won!!!!!!!!!!\n",CLI_BLUE);
+        printf("Your balance is now %d\n",balance);
+        return;
+    }
+
+    //player burst
+    else if(playerpoints>21){
+
+        balance-=round->bet;
+        printf("%sYou have lost!!!!!!!!!!\n",CLI_RED);
+        printf("Your balance is now %d\n",balance);
+        return;
+    }
+    //dealer burst
+    else if(dealerpoints>21){
+
+        balance+=round->bet*2;
+        printf("%sYou have won!!!!!!!!!!\n",CLI_BLUE);
+        printf("Your balance is now %d\n",balance);
+        return;
+        
+    }
+    //player has more points than dealer
+    else if(diff>0){
+
+        balance+=round->bet*2;
+        printf("%sYou have won!!!!!!!!!!\n",CLI_BLUE);
+        printf("Your balance is now %d\n",balance);
+        return;
+    }
+    //dealer has higher than player
+    else if(diff<0){
+
+        balance-=round->bet;
+        printf("%sYou have lost!!!!!!!!!!\n",CLI_RED);
+        printf("Your balance is now %d\n",balance);
+        return;
+    }
+
+    printf("It is a push\n");
+    printf("Your balance is still %d\n",balance);
+    return;
+}
+
+void Hit(Round *round,CliInterface interface,int balance){
+
+    TransferCards(round->main_deck,round->player_hand1,1);
+    show_interface(round,balance);
+    
+    bool hit=interface.ask_option(&interface,"would you like to hit again?(yes,no)\n","  no|yes");
+
+    while(hit){
+
+        TransferCards(round->main_deck,round->player_hand1,1);
+        show_interface(round,balance);
+        hit=interface.ask_option(&interface,"would you like to hit again?(yes,no)\n","  no|yes");
+    }
+
+}
