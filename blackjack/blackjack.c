@@ -110,17 +110,11 @@ void Winner(Round *round,Deck *playerhand,int balance){
 
 void Hit(Round *round,CliInterface interface,int balance){
 
-    bool hit=interface.ask_option(&interface,"would you like to hit?(yes,no)\n","  no|yes");
-    if(!hit){
-        return;
-    }
-    TransferCards(round->main_deck,round->player_hand1,1);
-    show_interface(round,balance);
-    
-
-    while(hit){
-        hit=interface.ask_option(&interface,"would you like to hit again?(yes,no)\n","  no|yes");
-
+    while(true){
+        bool hit=interface.ask_option(&interface,"would you like to hit ?(yes,no)\n","  no|yes");
+        if(!hit){
+            break;
+        }
         TransferCards(round->main_deck,round->player_hand1,1);
         show_interface(round,balance);
     }
