@@ -36,12 +36,9 @@ int main(){
 
         //implement the rest here
 
-        bool hit = interface.ask_option(&interface,"would you like to hit ?(yes,no)\n","  no|yes");
+       Hit(round,interface,balance);
 
-        if(hit){
-            
-           Hit(round,interface,balance);
-        }
+
 
        Winner(round,round->player_hand1,balance);
 
