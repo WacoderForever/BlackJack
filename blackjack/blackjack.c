@@ -57,15 +57,15 @@ void Winner(Round *round,Deck *playerhand,int *balance){
 
         TransferCards(round->main_deck,round->dealer_deck,1);
         dealerpoints=GetPoints(round->dealer_deck);
-        show_interface(round,*balance);
+        show_final_interface(round,*balance);
         sleep(1);
     }
-    show_interface(round,*balance);
+    show_final_interface(round,*balance);
     //natural
     if((playerpoints==21) && (dealerpoints != 21)){
 
         *balance+=round->bet*2;
-        show_interface(round,*balance);
+        show_final_interface(round,*balance);
         printf("%sYou have won!!!!!!!!!!\n",CLI_BLUE);
         printf("Your balance is now %d\n",*balance);
         return;
@@ -74,7 +74,7 @@ void Winner(Round *round,Deck *playerhand,int *balance){
     //player burst
     else if(playerpoints>21){
 
-        show_interface(round,*balance);
+        show_final_interface(round,*balance);
         printf("%sYou have lost!!!!!!!!!!\n",CLI_RED);
         printf("Your balance is now %d\n",*balance);
         return;
@@ -83,7 +83,7 @@ void Winner(Round *round,Deck *playerhand,int *balance){
     else if(dealerpoints>21){
 
         *balance+=round->bet*2;
-        show_interface(round,*balance);
+        show_final_interface(round,*balance);
         printf("%sYou have won!!!!!!!!!!\n",CLI_BLUE);
         printf("Your balance is now %d\n",*balance);
         return;
@@ -93,7 +93,7 @@ void Winner(Round *round,Deck *playerhand,int *balance){
     else if(playerpoints>dealerpoints){
 
         *balance+=round->bet*2;
-        show_interface(round,*balance);
+        show_final_interface(round,*balance);
         printf("%sYou have won!!!!!!!!!!\n",CLI_BLUE);
         printf("Your balance is now %d\n",*balance);
         return;
@@ -101,13 +101,14 @@ void Winner(Round *round,Deck *playerhand,int *balance){
     //dealer has higher than player
     else if(playerpoints<dealerpoints){
 
-        show_interface(round,*balance);
+        show_final_interface(round,*balance);
         printf("%sYou have lost!!!!!!!!!!\n",CLI_RED);
         printf("Your balance is now %d\n",*balance);
         return;
     }
 
-    show_interface(round,*balance);
+    *balance+=round->bet;
+    show_final_interface(round,*balance);
     printf("It is a push\n");
     printf("Your balance is still %d\n",*balance);
 }

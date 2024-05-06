@@ -81,3 +81,26 @@ void show_interface(Round *current_round, int balance)
         print_deck(current_round->player_hand2);
     }
 }
+
+void show_final_interface(Round *current_round, int balance){
+    
+    system("clear");
+    printf("cards remaning:%s%d\n", CLI_GREEN, current_round->main_deck->size);
+    printf("balance:%s%d\n", CLI_GREEN, balance);
+    printf("%s", CLI_WHITE);
+    printf("bet:%s%d\n", CLI_GREEN, current_round->bet);
+    printf("%s", CLI_WHITE);
+
+    printf("dealer:");
+    print_deck(current_round->dealer_deck);
+
+    printf("hand1:");
+    print_deck(current_round->player_hand1);
+
+    if (current_round->player_hand2)
+    {
+        printf("hand2:");
+        print_deck(current_round->player_hand2);
+    }
+
+}
