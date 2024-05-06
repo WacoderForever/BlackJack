@@ -10,7 +10,6 @@
 
 
 #define DECK_LIB_SEED 23423492323
-unsigned int TOTAL_ITERATIONS = 0;
 #define DECK_LIB_TOTAL_SHUFFLE 10000
 
 enum {
@@ -65,6 +64,10 @@ int GetCardSuit(Card *self);
 
 void FreeCard(Card *self);
 
+
+unsigned long TOTAL_ITERATIONS = 0;
+unsigned long DECKLIB_DEBUG_SEED = 0;
+unsigned  long DECK_LIB_STARTED_SEED = 0;
 typedef struct Deck{
 
     Card **cards;
@@ -500,7 +503,14 @@ void  RemoveCardFromDeck(Deck *self,Card *card){
 
 }
 int privateDeck_lib_get_random_card_index(Deck *self){
-    unsigned  long current_seed = time(NULL) + DECK_LIB_SEED + TOTAL_ITERATIONS;
+    unsigned  long current_seed = DECKLIB_DEBUG_SEED +TOTAL_ITERATIONS;
+    if(!DECKLIB_DEBUG_SEED){
+        current_seed = time(NULL) + DECK_LIB_SEED + TOTAL_ITERATIONS;
+    }
+    if(!DECK_LIB_STARTED_SEED){
+        DECK_LIB_STARTED_SEED = current_seed;
+    }
+
     TOTAL_ITERATIONS+=1;
     srand(current_seed);
     return rand() %( self->size-1);
