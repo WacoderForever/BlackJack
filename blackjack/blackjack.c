@@ -42,7 +42,7 @@ bool CanSplit(Deck *deck){
 
     Card * first = deck->cards[0];
     Card  *second = deck->cards[1];
-    if(GetBlackJackCardValue(first)== GetBlackJackCardValue(second)) {
+    if(first->value==second->value) {
         return true;
     }
     return false;
@@ -58,6 +58,7 @@ void Winner(Round *round,Deck *playerhand,int *balance){
         TransferCards(round->main_deck,round->dealer_deck,1);
         dealerpoints=GetPoints(round->dealer_deck);
         show_interface(round,*balance);
+        sleep(1);
     }
     show_interface(round,*balance);
     //natural
