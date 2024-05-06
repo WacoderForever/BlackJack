@@ -35,20 +35,21 @@ int main(){
         }
 
         //implement the rest here
+        if(!split){
+            
+            Hit(round,interface,&balance);
+        }
 
-       Hit(round,interface,balance);
 
-
-
-       Winner(round,round->player_hand1,balance);
+       Winner(round,round->player_hand1,&balance);
 
         if(split){
 
-           Winner(round,round->player_hand2,balance);
+           Winner(round,round->player_hand2,&balance);
         }
 
         printf("%s====================================\n",CLI_RED);
-        bool again = interface.ask_option(&interface,"would you like yo play again ?","no | yes"); 
+        bool again = interface.ask_option(&interface,"would you like to play again ?","no | yes"); 
         Round_free(round);
 
         if(!again){

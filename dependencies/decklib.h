@@ -150,7 +150,7 @@ const char * GetCardValueString(Card *self){
         return "6";
     }
     if(self->value == CARD7){
-        return "2";
+        return "7";
     }
     if(self->value == CARD8){
         return "8";
