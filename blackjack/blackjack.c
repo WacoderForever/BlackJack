@@ -119,10 +119,10 @@ void Hit(Round *round,CliInterface interface,int balance){
     
 
     while(hit){
+        hit=interface.ask_option(&interface,"would you like to hit again?(yes,no)\n","  no|yes");
 
         TransferCards(round->main_deck,round->player_hand1,1);
         show_interface(round,balance);
-        hit=interface.ask_option(&interface,"would you like to hit again?(yes,no)\n","  no|yes");
     }
 
 }
