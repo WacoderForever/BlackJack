@@ -110,7 +110,6 @@ void Winner(Round *round,Deck *playerhand,int *balance){
     show_interface(round,*balance);
     printf("It is a push\n");
     printf("Your balance is still %d\n",*balance);
-    return;
 }
 
 void Hit(Round *round,CliInterface interface,int *balance){
